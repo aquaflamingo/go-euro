@@ -1,6 +1,6 @@
 # Go EuroFx 
 
-European Central Bank rates in Go
+Go library to parse the European Central Bank statistics for daliy foreign currency rates
 
 # Author 
 Robert Simoes
