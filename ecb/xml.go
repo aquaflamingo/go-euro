@@ -8,8 +8,8 @@ type Sender struct {
 }
 
 type RateCube struct {
-	XMLName  xml.Name `xml:"Cube"`
-	Currency string   `xml:"currency,attr"`
+	XMLName     xml.Name `xml:"Cube"`
+	IsoCurrency string   `xml:"currency,attr"`
 	// Rate in EUR
 	Rate string `xml:"rate,attr"`
 }
@@ -25,7 +25,7 @@ type BaseCube struct {
 	TimeCubes []TimeCube `xml:"Cube"`
 }
 
-type EcbRatesMessage struct {
+type RatesMessage struct {
 	XMLName  xml.Name `xml:"gesmes:Envelope"`
 	Subject  string   `xml:"gesmes:subject"`
 	Sender   Sender   `xml:"gesmes:Sender"`
