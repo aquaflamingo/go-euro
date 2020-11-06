@@ -17,20 +17,20 @@ const (
 	NinetyDayHistorical Feed = "hist-90d"
 )
 
-type XMLFetcher interface {
+type DataSource interface {
 	GetRatesXml(f Feed) ([]byte, error)
 }
 
 type RatesParser struct {
-	fetcher XMLFetcher
+	source DataSource
 }
 
-func NewRatesParser(f XMLFetcher) *RatesParser {
-	return &RatesParser{fetcher: f}
+func NewRatesParser(f DataSource) *RatesParser {
+	return &RatesParser{source: f}
 }
 
 func (p *RatesParser) Today() (*RatesMessage, error) {
-	xmlData, err := p.fetcher.GetRatesXml(Daily)
+	xmlData, err := p.source.GetRatesXml(Daily)
 
 	if err != nil {
 		return &RatesMessage{}, err
@@ -43,9 +43,9 @@ func (p *RatesParser) Today() (*RatesMessage, error) {
 	return &rates, nil
 }
 
-type EuropeanCentralBankXMLFetcher struct{}
+type EuropeanCentralBankData struct{}
 
-func (ecb *EuropeanCentralBankXMLFetcher) GetRatesXml(f Feed) ([]byte, error) {
+func (ecb *EuropeanCentralBankData) GetRatesXml(f Feed) ([]byte, error) {
 	response, err := http.Get(fmt.Sprintf(EuropeanCentralBankRatesUrl, f))
 
 	if err != nil {
