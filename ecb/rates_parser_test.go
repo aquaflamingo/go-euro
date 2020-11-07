@@ -33,6 +33,33 @@ func Test_Today(t *testing.T) {
 
 	ratesParser := NewRatesParser(&mockSource)
 
-	// TODO Mock xml
-	test
+	result, err := ratesParser.Today()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	timeRates := result.BaseCube.TimeCubes
+
+	assertIntMatch(len(timeRates), 1, t)
+
+	rates := timeRates[0].RateCubes
+
+	assertIntMatch(len(rates), 32, t)
+
+	usdRate := rates[0]
+	assertMatch(usdRate.IsoCurrency, "USD", t)
+	assertMatch(usdRate.Rate, "1.1870", t)
+}
+
+func assertIntMatch(got int, expect int, t *testing.T) {
+	if expect != got {
+		t.Fatalf("expected %d got %d", expect, got)
+	}
+}
+
+func assertMatch(got string, expect string, t *testing.T) {
+	if expect != got {
+		t.Fatalf("expected %s got %s", expect, got)
+	}
 }
