@@ -3,8 +3,8 @@ package ecb
 import "encoding/xml"
 
 type Sender struct {
-	XMLName xml.Name `xml:"gesmes:Sender"`
-	Name    string   `xml:"gesmes:name"`
+	XMLName xml.Name `xml:"Sender"`
+	Name    string   `xml:"name"`
 }
 
 type RateCube struct {
@@ -26,8 +26,8 @@ type BaseCube struct {
 }
 
 type RatesMessage struct {
-	XMLName  xml.Name `xml:"gesmes:Envelope"`
-	Subject  string   `xml:"gesmes:subject"`
-	Sender   Sender   `xml:"gesmes:Sender"`
+	XMLName  xml.Name `xml:"Envelope"`
+	Subject  string   `xml:"subject"`
+	Sender   Sender   `xml:"Sender"`
 	BaseCube BaseCube `xml:"Cube"`
 }
