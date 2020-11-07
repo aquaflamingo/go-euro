@@ -29,6 +29,34 @@ func NewRatesParser(f DataSource) *RatesParser {
 	return &RatesParser{source: f}
 }
 
+func (p *RatesParser) NinetyDay() (*RatesMessage, error) {
+	xmlData, err := p.source.GetRatesXml(NinetyDayHistorical)
+
+	if err != nil {
+		return &RatesMessage{}, err
+	}
+
+	var rates RatesMessage
+
+	xml.Unmarshal(xmlData, &rates)
+
+	return &rates, nil
+}
+
+func (p *RatesParser) Historical() (*RatesMessage, error) {
+	xmlData, err := p.source.GetRatesXml(Historical)
+
+	if err != nil {
+		return &RatesMessage{}, err
+	}
+
+	var rates RatesMessage
+
+	xml.Unmarshal(xmlData, &rates)
+
+	return &rates, nil
+}
+
 func (p *RatesParser) Today() (*RatesMessage, error) {
 	xmlData, err := p.source.GetRatesXml(Daily)
 
