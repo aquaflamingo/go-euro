@@ -1,41 +1,14 @@
 package ecb
 
 import (
-	"io/ioutil"
 	"testing"
 )
 
-func xmlFixture(path string) []byte {
-	f, err := ioutil.ReadFile("testdata/fixtures/" + path)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return f
-}
-
-func setup() func() {
-	return func() {}
-}
-
-type MockECB struct {
-	filePath string
-}
-
-func (m *MockECB) GetRatesXml(f Feed) ([]byte, error) {
-	return xmlFixture(m.filePath), nil
-}
-
 func Test_Today(t *testing.T) {
-	teardown := setup()
+	teardown := TestSetup("2020-11-06.xml")
 	defer teardown()
 
-	mockSource := MockECB{filePath: "2020-11-06.xml"}
-
-	ratesParser := NewRatesParser(&mockSource)
-
-	result, err := ratesParser.Today()
+	result, err := ratesParser.GetRates(Daily)
 
 	if err != nil {
 		t.Fatal(err)
@@ -55,14 +28,10 @@ func Test_Today(t *testing.T) {
 }
 
 func Test_NinetyDay(t *testing.T) {
-	teardown := setup()
+	teardown := TestSetup("hist-90d.xml")
 	defer teardown()
 
-	mockSource := MockECB{filePath: "hist-90d.xml"}
-
-	ratesParser := NewRatesParser(&mockSource)
-
-	result, err := ratesParser.Today()
+	result, err := ratesParser.GetRates(NinetyDay)
 
 	if err != nil {
 		t.Fatal(err)
@@ -83,14 +52,10 @@ func Test_NinetyDay(t *testing.T) {
 }
 
 func Test_Historical(t *testing.T) {
-	teardown := setup()
+	teardown := TestSetup("historical.xml")
 	defer teardown()
 
-	mockSource := MockECB{filePath: "historical.xml"}
-
-	ratesParser := NewRatesParser(&mockSource)
-
-	result, err := ratesParser.Today()
+	result, err := ratesParser.GetRates(Historical)
 
 	if err != nil {
 		t.Fatal(err)
