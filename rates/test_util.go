@@ -1,4 +1,4 @@
-package ecb
+package rates
 
 import (
 	"io/ioutil"
