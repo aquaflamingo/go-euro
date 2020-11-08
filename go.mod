@@ -1,3 +1,3 @@
-module github.com/robertsimoes/goeuro-fx
+module github.com/robertsimoes/go-eurofx
 
 go 1.14
