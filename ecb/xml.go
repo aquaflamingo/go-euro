@@ -16,7 +16,7 @@ type RateCube struct {
 
 type TimeCube struct {
 	XMLName   xml.Name   `xml:"Cube"`
-	Time      string     `xml:"time,attr"`
+	Date      string     `xml:"time,attr"`
 	RateCubes []RateCube `xml:"Cube"`
 }
 
@@ -25,7 +25,7 @@ type BaseCube struct {
 	TimeCubes []TimeCube `xml:"Cube"`
 }
 
-type RatesMessage struct {
+type GenericStatisticalRatesMessage struct {
 	XMLName  xml.Name `xml:"Envelope"`
 	Subject  string   `xml:"subject"`
 	Sender   Sender   `xml:"Sender"`

@@ -12,63 +12,21 @@ const EuropeanCentralBankRatesUrl = "http://www.ecb.europa.eu/stats/eurofxref/eu
 type Feed string
 
 const (
-	Daily               Feed = "daily"
-	Historical          Feed = "hist"
-	NinetyDayHistorical Feed = "hist-90d"
+	Daily      Feed = "daily"
+	Historical Feed = "hist"
+	NinetyDay  Feed = "hist-90d"
 )
 
-type DataSource interface {
+type ExchangeRateDataSource interface {
 	GetRatesXml(f Feed) ([]byte, error)
 }
 
 type RatesParser struct {
-	source DataSource
+	source ExchangeRateDataSource
 }
 
-func NewRatesParser(f DataSource) *RatesParser {
+func NewRatesParser(f ExchangeRateDataSource) *RatesParser {
 	return &RatesParser{source: f}
-}
-
-func (p *RatesParser) NinetyDay() (*RatesMessage, error) {
-	xmlData, err := p.source.GetRatesXml(NinetyDayHistorical)
-
-	if err != nil {
-		return &RatesMessage{}, err
-	}
-
-	var rates RatesMessage
-
-	xml.Unmarshal(xmlData, &rates)
-
-	return &rates, nil
-}
-
-func (p *RatesParser) Historical() (*RatesMessage, error) {
-	xmlData, err := p.source.GetRatesXml(Historical)
-
-	if err != nil {
-		return &RatesMessage{}, err
-	}
-
-	var rates RatesMessage
-
-	xml.Unmarshal(xmlData, &rates)
-
-	return &rates, nil
-}
-
-func (p *RatesParser) Today() (*RatesMessage, error) {
-	xmlData, err := p.source.GetRatesXml(Daily)
-
-	if err != nil {
-		return &RatesMessage{}, err
-	}
-
-	var rates RatesMessage
-
-	xml.Unmarshal(xmlData, &rates)
-
-	return &rates, nil
 }
 
 type EuropeanCentralBankData struct{}
@@ -92,4 +50,18 @@ func (ecb *EuropeanCentralBankData) GetRatesXml(f Feed) ([]byte, error) {
 	}
 
 	return data, nil
+}
+
+func (p *RatesParser) GetRates(f Feed) (*GenericStatisticalRatesMessage, error) {
+	xmlData, err := p.source.GetRatesXml(f)
+
+	if err != nil {
+		return &GenericStatisticalRatesMessage{}, err
+	}
+
+	var rates GenericStatisticalRatesMessage
+
+	xml.Unmarshal(xmlData, &rates)
+
+	return &rates, nil
 }
