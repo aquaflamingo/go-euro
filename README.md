@@ -1,4 +1,4 @@
-# Go EuroFx 
+# Go Euro
 
 Go library to parse the European Central Bank statistics for daily foreign currency rates
 
@@ -9,7 +9,7 @@ Go library to parse the European Central Bank statistics for daily foreign curre
 
 ```
 import (
-	 rates "github.com/robertsimoes/go-eurofx/rates"
+	 rates "github.com/robertsimoes/go-euro/rates"
 )
 
 func main() {
