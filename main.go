@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/robertsimoes/go-eurofx/rates"
+	"github.com/robertsimoes/go-euro/rates"
 )
 
 func main() {
