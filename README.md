@@ -8,20 +8,14 @@ Go library to parse the European Central Bank statistics for daily foreign curre
 * Get the historic EUR exchange rate
 
 ```
-import (
-	 rates "github.com/robertsimoes/go-euro/rates"
-)
 
 func main() {
-	 exchangeRate, err := rates.AllCurrentRates()
+	 exchangeRate, err := goeuro.AllCurrentRates()
 	 
 	 usd := exchangeRate.Rates["USD"]
 	 fmt.Printf("today 1 EUR = %s USD", usd)
 }
 ```
 
-# Author 
-Robert Simoes
-
-# Licence
-This repository is licenced under MIT Open Source Licence
+# License
+This repository is licensed under MIT Open Source Licence
