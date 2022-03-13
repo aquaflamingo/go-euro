@@ -1,3 +1,3 @@
-module github.com/robertsimoes/go-euro
+module github.com/aquaflamingo/go-euro
 
 go 1.14

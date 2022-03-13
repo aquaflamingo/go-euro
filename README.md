@@ -1,4 +1,5 @@
 # Go Euro
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 Go library to parse the European Central Bank statistics for daily foreign currency rates
 
